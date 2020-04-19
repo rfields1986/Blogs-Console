@@ -21,23 +21,60 @@ namespace BlogsConsole
 
                 do
                 {
-                    Console.Write("1. Display All Blogs\n2. Create New Blog\n3. Create New Post\n4. Exit\n\nPlease Enter The Number Of Your Choice-->  ");
-                    Int32.TryParse(Console.ReadLine(), out  menuInput);
+                    Console.Write("1. Display Blogs Or Posts\n2. Create New Blog\n3. Create New Post\n4. Exit\n\nPlease Enter The Number Of Your Choice-->  ");
+                    Int32.TryParse(Console.ReadLine(), out menuInput);
 
-                    
+
 
                     switch (menuInput)
                     {
                         case 1:
-                            // Display all Blogs from the database
-                            var query = db.Blogs.OrderBy(b => b.Name);
-
-                            Console.WriteLine("All blogs in the database:");
-                            foreach (var item in query)
+                            //Display Menu Options 
+                            var menuInput1 = 0;
+                            Console.Write("1. Display All Blogs By Name And ID\n2. \n3. \n4. Exit\n\nPlease Enter The Number Of Your Choice-->  ");
+                            Int32.TryParse(Console.ReadLine(), out menuInput1);
+                            switch (menuInput1)
                             {
-                                Console.WriteLine($"Blog Name: {item.Name} | Blog ID: {item.BlogId}");
+                                case 1:
+                                    // Display all Blogs from the database
+                                    var query = db.Blogs.OrderBy(b => b.Name);
+
+                                    Console.WriteLine("All blogs in the database:");
+                                    foreach (var item in query)
+                                    {
+                                        Console.WriteLine($"Blog Name: {item.Name} | Blog ID: {item.BlogId}");
+                                    }
+                                    break;
+
+                                case 2:
+                                    //Display a Post from the database
+                                    var query2 = db.Blogs.OrderBy(b => b.Name);
+
+                                    Console.WriteLine("All blogs in the database:");
+                                    foreach (var item in query2)
+                                    {
+                                        Console.WriteLine($"Blog Name: {item.Name} | Blog ID: {item.BlogId}");
+                                    }
+
+
+                                    Console.WriteLine("Please Select A Blog");
+                                    Int32.TryParse(Console.ReadLine(), out menuInput1);
+                                    var blogChoice1 = new Blog();
+                                    blogChoice1.BlogId = menuInput1;
+                                    logger.Info($"User Picked Blog: {blogChoice1.Name} |  ID: {blogChoice1.BlogId}");
+
+
+
+
+                                    break;
+
                             }
+
+
+
+
                             break;
+
 
                         case 2:
                             // Create and save a new Blog
