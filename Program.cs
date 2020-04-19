@@ -1,6 +1,7 @@
 ﻿using NLog;
 using BlogsConsole.Models;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Channels;
@@ -20,7 +21,7 @@ namespace BlogsConsole
 
                 do
                 {
-                    Console.Write("1. Display all Blogs\n2. Create New Blog\n3. Create New Post\n4. Exit\n\nPlease Enter Your Choice-->  ");
+                    Console.Write("1. Display All Blogs\n2. Create New Blog\n3. Create New Post\n4. Exit\n\nPlease Enter The Number Of Your Choice-->  ");
                     Int32.TryParse(Console.ReadLine(), out  menuInput);
 
                     
@@ -48,6 +49,7 @@ namespace BlogsConsole
                             break;
 
                         case 3:
+                            // Create New Post
                             Console.WriteLine("Which Blog Would You Like To Post In?\nPlease Enter Blog ID-->  ");
                             Int32.TryParse(Console.ReadLine(), out var input1);
                             var blogChoice = db.Blogs.FirstOrDefault(b => b.BlogId == input1);
