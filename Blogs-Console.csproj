@@ -59,12 +59,12 @@
     <Compile Include="Models\BloggingContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="NLog.xsd" />
     <None Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="App.config" />
     <None Include="App.config.txt" />
   </ItemGroup>
   <ItemGroup />
