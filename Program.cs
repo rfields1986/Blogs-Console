@@ -31,7 +31,7 @@ namespace BlogsConsole
                         case 1:
                             //Display Menu Options 
                             var menuInput1 = 0;
-                            Console.Write("1. Display All Blogs By Name And ID\n2. \n3. \n4. Exit\n\nPlease Enter The Number Of Your Choice-->  ");
+                            Console.Write("1. Display All Blogs By Name And ID\n2.Display a Post From A Blog Or All Blogs In The Database\n3. \n4. Exit\n\nPlease Enter The Number Of Your Choice-->  ");
                             Int32.TryParse(Console.ReadLine(), out menuInput1);
                             switch (menuInput1)
                             {
@@ -47,7 +47,7 @@ namespace BlogsConsole
                                     break;
 
                                 case 2:
-                                    //Display a Post from the database
+                                    //Display a Post from a blog or all blogs in the database
                                     var query2 = db.Blogs.OrderBy(b => b.Name);
 
                                     Console.WriteLine("All blogs in the database:");
@@ -56,12 +56,15 @@ namespace BlogsConsole
                                         Console.WriteLine($"Blog Name: {item.Name} | Blog ID: {item.BlogId}");
                                     }
 
+                                    Console.WriteLine("Which Blog's Posts Would You Like To See?\nPlease Enter The Blog ID-->  ");
+                                    Int32.TryParse(Console.ReadLine(), out var input1);
+                                    var blogChoice1 = db.Blogs.FirstOrDefault(b => b.BlogId == input1);
+                                    logger.Info($"The Blog Chosen Is {blogChoice1.Name} ");
+                                    Console.WriteLine($"{blogChoice1.Posts}");
+                                    Console.ReadKey();
 
-                                    Console.WriteLine("Please Select A Blog");
-                                    Int32.TryParse(Console.ReadLine(), out menuInput1);
-                                    var blogChoice1 = new Blog();
-                                    blogChoice1.BlogId = menuInput1;
-                                    logger.Info($"User Picked Blog: {blogChoice1.Name} |  ID: {blogChoice1.BlogId}");
+
+
 
 
 
@@ -88,15 +91,15 @@ namespace BlogsConsole
                         case 3:
                             // Create New Post
                             Console.WriteLine("Which Blog Would You Like To Post In?\nPlease Enter Blog ID-->  ");
-                            Int32.TryParse(Console.ReadLine(), out var input1);
-                            var blogChoice = db.Blogs.FirstOrDefault(b => b.BlogId == input1);
-                            Console.WriteLine($"The Blog Chosen Is {blogChoice.Name} ");
+                            Int32.TryParse(Console.ReadLine(), out var input2);
+                            var blogChoice2 = db.Blogs.FirstOrDefault(b => b.BlogId == input2);
+                            Console.WriteLine($"The Blog Chosen Is {blogChoice2.Name} ");
                             Console.WriteLine("Please Enter Post Title--> ");
                             Post newPost = new Post();
                             newPost.Title = Console.ReadLine();
                             Console.WriteLine("Please Enter The Post Content Below");
                             newPost.Content = Console.ReadLine();
-                            newPost.BlogId = blogChoice.BlogId;
+                            newPost.BlogId = blogChoice2.BlogId;
                             db.AddPost(newPost);
                             db.SaveChanges();
                             break;
