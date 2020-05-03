@@ -134,7 +134,7 @@ namespace BlogsConsole
             Console.WriteLine("All blogs in the database:");
             foreach (var item in query)
             {
-                Console.WriteLine($"Blog Name: {item.Name} | Blog ID: {item.BlogId}");
+                Console.WriteLine($"Blog Name: {item.Name,-25}  Blog ID: {item.BlogId,-5}");
             }
 
             Console.ReadKey();
@@ -149,7 +149,7 @@ namespace BlogsConsole
             Console.WriteLine("All blogs in the database:");
             foreach (var item in query2)
             {
-                Console.WriteLine($"Blog Name: {item.Name} | Blog ID: {item.BlogId}");
+                Console.WriteLine($"Blog Name: {item.Name,-25}  Blog ID: {item.BlogId,-5}");
             }
 
             Console.Write("Which Blog's Posts Would You Like To See?\nPlease Enter The Blog ID Or Hit Enter To See All Blog's Posts-->  ");
@@ -159,7 +159,7 @@ namespace BlogsConsole
                 var Posts = db.Posts.OrderBy(p => p.Title);
                 foreach (var item in Posts)
                 {
-                    Console.WriteLine($"Blog: {item.Blog.Name}\nTitle: {item.Title}\nPost: {item.Content}\n\n");
+                    Console.WriteLine($"{"Blog:",-10}{item.Blog.Name}\n{"Title:",-10}{item.Title}\n{"Post:",-10}{item.Content}\n\n");
                 }
 
                 Console.ReadKey();
@@ -187,8 +187,8 @@ namespace BlogsConsole
 
                         foreach (var item in Posts)
                         {
-                            Console.WriteLine(
-                                $"Blog: {item.Blog.Name}\nTitle: {item.Title}\nPost: {item.Content}\n\n");
+                            Console.WriteLine($"{"Blog:",-10}{item.Blog.Name}\n{"Title:",-10}{item.Title}\n{"Post:",-10}{item.Content}\n\n");
+
                         }
                     }
 
@@ -214,6 +214,7 @@ namespace BlogsConsole
                 var blog = new Blog { Name = name };
                 db.AddBlog(blog);
                 logger.Info("\nBlog added - {name}\n", name);
+                Console.ReadKey();
             }
         }
 
@@ -247,8 +248,11 @@ namespace BlogsConsole
                 newPost.Content = Console.ReadLine();
                 newPost.BlogId = blogChoice2.BlogId;
                 db.AddPost(newPost);
+                logger.Info($"{newPost} added {DateTime.Now}");
                 db.SaveChanges();
             }
+
+            Console.ReadKey();
         }
 
         public static void EditBlog()
